@@ -21,7 +21,7 @@ export default class List extends Component {
 
             return (
               <li key={i} data-layout="row" data-layout-align="space-between center" className={styles.listItem}>
-                <img src={imageLinks.smallThumbnail} alt={book.searchInfo.textSnippet}/>
+                <img src={imageLinks && imageLinks.smallThumbnail} alt={book.searchInfo && book.searchInfo.textSnippet}/>
                 <span>Title: {title}</span>
                 <span>Author: {authors}</span>
                 <span>Published date: {publishedDate}</span>

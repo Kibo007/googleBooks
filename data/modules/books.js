@@ -16,10 +16,11 @@ export const APPS_SUCCESS = 'APPS_SUCCESS';
 //---------------------------- action creator  -------------------------------------------------------
 //---------------------------------------------------------------------------------------------
 
-const booksFetched = (payload) => {
+const booksFetched = (payload, query) => {
   return {
     type: APPS_SUCCESS,
-    payload
+    payload,
+    query
   };
 };
 
@@ -28,13 +29,13 @@ const booksFetched = (payload) => {
 //---------------------------- async action creator  -------------------------------------------------------
 //---------------------------------------------------------------------------------------------
 
-export const fetchBooks = (query) => {
+export const fetchBooks = (query, startIndex = 0,) => {
   return dispatch => {
 
-    return fetch(`https://www.googleapis.com/books/v1/volumes?q=intitle:${query}&printType=books&orderBy=newest&maxResults=2`)
+    return fetch(`https://www.googleapis.com/books/v1/volumes?q=intitle:${query}&startIndex=${startIndex}&printType=books&orderBy=newest&maxResults=10`)
       .then(checkStatus)
       .then(parseJSON)
-      .then(json => dispatch(booksFetched(json)))
+      .then(json => dispatch(booksFetched(json, query)))
       .catch(error => {
         console.log(error)
         //TODO make error handling to
@@ -47,7 +48,6 @@ export const fetchBooks = (query) => {
 //---------------------------------------------------------------------------------------------
 
 let initialState = {
-  
 };
 
 // reducer
@@ -58,9 +58,10 @@ export const books = (state = initialState, action = {}) => {
     case APPS_SUCCESS:
       return {
         ...state,
-        ...action.payload
+        ...action.payload,
+        query: action.query
       };
-    
+
     default:
       return state;
   }
@@ -71,9 +72,11 @@ export const books = (state = initialState, action = {}) => {
 //---------------------------------------------------------------------------------------------
 
 export const mapStateToProps = state => {
- 
+  let {items, query, totalItems} = state.books;
   return {
-   booksList: state.books.items
+    booksList: items,
+    query,
+    pageNum: Math.ceil(totalItems / 10)
   };
 };
 

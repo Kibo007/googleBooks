@@ -4,7 +4,8 @@ import {connect} from 'react-redux';
 import {mapStateToProps, mapActionToDispatch} from './../../../data/modules/books';
 
 import Search from './../../components/search/Search';
-import List from './../../components/list/List'
+import List from './../../components/list/List';
+import Pagination from './../../components/pagination/Pagination';
 
 class App extends Component {
   constructor(props) {
@@ -15,12 +16,16 @@ class App extends Component {
   }
 
   render() {
+    let {fetchBooks, booksList, query, pageNum} = this.props;
     
     return (
       <div>
 
-        <Search fetchBooks={this.props.fetchBooks} />
-        <List booksList={this.props.booksList} />
+        <Search fetchBooks={fetchBooks} />
+        <List booksList={booksList} />
+        <Pagination query={query}
+                    fetchBooks={fetchBooks}
+                    pageNum={pageNum}/>
       </div>
     );
   }
