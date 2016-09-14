@@ -16,7 +16,7 @@ export const APPS_SUCCESS = 'APPS_SUCCESS';
 //---------------------------- action creator  -------------------------------------------------------
 //---------------------------------------------------------------------------------------------
 
-const appsSuccess = (payload) => {
+const booksFetched = (payload) => {
   return {
     type: APPS_SUCCESS,
     payload
@@ -28,13 +28,13 @@ const appsSuccess = (payload) => {
 //---------------------------- async action creator  -------------------------------------------------------
 //---------------------------------------------------------------------------------------------
 
-export const fetchApps = () => {
+export const fetchBooks = (query) => {
   return dispatch => {
 
-    return fetch(`http://localhost:2403/apps`)
+    return fetch(`https://www.googleapis.com/books/v1/volumes?q=intitle:${query}&printType=books&orderBy=newest&maxResults=2`)
       .then(checkStatus)
       .then(parseJSON)
-      .then(json => dispatch(appsSuccess(json)))
+      .then(json => dispatch(booksFetched(json)))
       .catch(error => {
         console.log(error)
         //TODO make error handling to
@@ -58,7 +58,7 @@ export const books = (state = initialState, action = {}) => {
     case APPS_SUCCESS:
       return {
         ...state,
-        list: action.payload
+        ...action.payload
       };
     
     default:
@@ -73,7 +73,7 @@ export const books = (state = initialState, action = {}) => {
 export const mapStateToProps = state => {
  
   return {
-   
+   booksList: state.books.items
   };
 };
 
@@ -82,7 +82,7 @@ export const mapStateToProps = state => {
 //---------------------------------------------------------------------------------------------
 export const mapActionToDispatch = (dispatch) => {
   return bindActionCreators({
-   
+    fetchBooks
   }, dispatch)
 };
 

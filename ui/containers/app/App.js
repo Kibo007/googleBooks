@@ -3,6 +3,9 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {mapStateToProps, mapActionToDispatch} from './../../../data/modules/books';
 
+import Search from './../../components/search/Search';
+import List from './../../components/list/List'
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -15,7 +18,9 @@ class App extends Component {
     
     return (
       <div>
-        my new app
+
+        <Search fetchBooks={this.props.fetchBooks} />
+        <List booksList={this.props.booksList} />
       </div>
     );
   }
@@ -26,7 +31,7 @@ App.propTypes = {
 };
 
 App.contextTypes = {
-  router: PropTypes.object.isRequired,
+  router: PropTypes.object.isRequired
 };
 
 export default connect(

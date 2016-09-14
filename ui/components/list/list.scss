@@ -1,0 +1,9 @@
+@import "../../styles/colors.scss";
+
+.list {
+  margin: 50px;
+  &Item {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+}
