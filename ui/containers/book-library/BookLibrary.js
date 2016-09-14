@@ -1,13 +1,13 @@
 import React, {Component, PropTypes} from 'react';
 
 import {connect} from 'react-redux';
-import {mapStateToProps, mapActionToDispatch} from './../../../data/modules/books';
+import {mapStateToProps, mapActionToDispatch} from '../../../data/modules/booksLibrary';
 
 import Search from './../../components/search/Search';
 import List from './../../components/list/List';
 import Pagination from './../../components/pagination/Pagination';
 
-class App extends Component {
+class BookLibrary extends Component {
   constructor(props) {
     super(props);
   }
@@ -15,14 +15,25 @@ class App extends Component {
   componentDidMount() {
   }
 
+  handleRoutingToDetailsPage = (url) => {
+    localStorage.setItem('bookUrl', url);
+    this.context.router.push('/book-details');
+  };
+
   render() {
-    let {fetchBooks, booksList, query, pageNum} = this.props;
+    let {
+      fetchBooks,
+      booksList,
+      query,
+      pageNum
+    } = this.props;
     
     return (
       <div>
 
         <Search fetchBooks={fetchBooks} />
-        <List booksList={booksList} />
+        <List booksList={booksList}
+              handleRoutingToDetailsPage={this.handleRoutingToDetailsPage}/>
         <Pagination query={query}
                     fetchBooks={fetchBooks}
                     pageNum={pageNum}/>
@@ -31,15 +42,15 @@ class App extends Component {
   }
 }
 
-App.propTypes = {
+BookLibrary.propTypes = {
   location: PropTypes.object
 };
 
-App.contextTypes = {
+BookLibrary.contextTypes = {
   router: PropTypes.object.isRequired
 };
 
 export default connect(
   mapStateToProps,
   mapActionToDispatch,
-)(App);
+)(BookLibrary);

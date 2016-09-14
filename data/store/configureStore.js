@@ -2,12 +2,14 @@ import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import { routerReducer } from 'react-router-redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
-import { books } from '../modules/books';
+import { booksLibrary } from '../modules/booksLibrary';
+import { bookDetails } from '../modules/bookDetails';
 
 const logger = createLogger({collapsed:true});
 const rootReducer = combineReducers(
   {
-    books,
+    booksLibrary,
+    bookDetails,
     routing: routerReducer
   }
 );
