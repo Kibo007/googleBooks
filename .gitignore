@@ -1,0 +1,15 @@
+node_modules/
+dist/
+*.d.ts
+.vscode/
+typings.json
+jsconfig.json
+npm-debug.log
+.DS_Store
+.idea
+API/.dpd
+API/data/
+.happypack/
+*.sublime-*
+.project
+
