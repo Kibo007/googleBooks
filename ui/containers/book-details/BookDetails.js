@@ -47,7 +47,7 @@ class BookDetails extends Component {
             <img src={image} alt={title}/>
           </div>
 
-          <div className="ml-x">
+          <div className="ml-l">
             <BookInfo details={{...this.props}}/>
 
             <Categories categories={categories}/>

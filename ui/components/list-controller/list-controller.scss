@@ -1,0 +1,36 @@
+@import "./../../styles/colors.scss";
+
+.filteredResults {
+  color: $text-medium;
+  margin-left: 10px;
+}
+
+.close {
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.searchParams {
+  max-width: 300px;
+  font-family: Lato-Regular;
+}
+
+.listController {
+  margin: 20px auto;
+  max-width: 800px;
+  .listViewBtn {
+    div {
+      height: 40px;
+      width: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+      padding: 0;
+    }
+  }
+  .sortBy {
+    margin-right: 10px;
+  }
+
+}

@@ -7,18 +7,13 @@ import Search from './../../components/search/Search';
 import List from './../../components/list/List';
 import Pagination from './../../components/pagination/Pagination';
 import Loading from './../../components/loading/Loading';
+import ListController from './../../components/list-controller/ListController';
 
 import styles from './bookLibrary.scss';
 
 class BookLibrary extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      listViewHorizontal: true
-    }
-  }
-
-  componentDidMount() {
   }
 
   handleRoutingToDetailsPage = (url) => {
@@ -26,22 +21,16 @@ class BookLibrary extends Component {
     this.context.router.push('/book-details');
   };
 
-  handleListView = () => {
-    this.setState({listViewHorizontal: !this.state.listViewHorizontal })
-  };
-
   render() {
-    let {
-      fetchBooks,
-      booksList,
-      query,
-      pageNum,
-      loading,
-      totalItems
+    let {fetchBooks, booksList, query, pageNum, loading, totalItems,
+          changeListView, listViewHorizontal, updateBooksListSortingDirection,
+          updateBooksListSorting, updateBooksListSearch, sortBy, sortDirection,
+          searchBy
     } = this.props;
 
     let isPaginationVisible = query && totalItems > 0;
     let noResults = totalItems === 0;
+    let showResults = !loading && booksList.length > 0;
 
     return (
       <div>
@@ -49,18 +38,25 @@ class BookLibrary extends Component {
           <Search fetchBooks={fetchBooks} />
         </div>
 
-        <div onClick={this.handleListView}>toggle list view</div>
-
-        {!loading &&
-          <List booksList={booksList}
-                handleRoutingToDetailsPage={this.handleRoutingToDetailsPage}
-                listViewHorizontal={this.state.listViewHorizontal}/>
+        {showResults &&
+          <div>
+            <ListController changeListView={changeListView}
+                            updateSortingDirection={updateBooksListSortingDirection}
+                            updateSortBy={updateBooksListSorting}
+                            updateSearchBy={updateBooksListSearch}
+                            sortBy={sortBy}
+                            sortDirection={sortDirection}
+                            searchBy={searchBy}/>
+            <List booksList={booksList}
+                  handleRoutingToDetailsPage={this.handleRoutingToDetailsPage}
+                  listViewHorizontal={listViewHorizontal}/>
+          </div>
         }
 
         {loading && <Loading />}
 
         {!query &&
-        <h2 className="center-text">Give it try and search for book!</h2>
+          <h2 className="center-text mt-l">Give it try and search for book!</h2>
         }
 
         {noResults && <h2 className="center-text">no results for {query}</h2>}

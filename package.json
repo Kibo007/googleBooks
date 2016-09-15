@@ -3,13 +3,13 @@
   "version": "0.0.1",
   "description": "App for managing marketing campaigns",
   "scripts": {
-    "start": "babel-node server.js",
     "build": "rimraf dist && NODE_ENV=production webpack --config ./webpack.production.config.js --progress --profile --colors",
-    "prod": "NODE_ENV=production PORT=80 babel-node server.js",
-    "lint": "eslint src; exit 0",
+    "build-win": "rimraf dist && SET NODE_ENV=production&& webpack --config ./webpack.production.config.js --progress --profile --colors",
     "clean": "rimraf dist",
     "dev-win": "SET NODE_ENV=development&&babel-node server.js",
-    "build-win": "rimraf dist && SET NODE_ENV=production&& webpack --config ./webpack.production.config.js --progress --profile --colors",
+    "lint": "eslint src; exit 0",
+    "prod": "NODE_ENV=production PORT=80 babel-node server.js",
+    "start": "babel-node server.js",
     "start-win": "SET NODE_ENV=production&&SET PORT=80&&babel-node server.js"
   },
   "author": "Bojan Dragojevic",
@@ -26,6 +26,7 @@
     "react-redux": "^4.4.5",
     "react-router": "^2.4.0",
     "react-router-redux": "4.0.4",
+    "react-select": "^0.9.1",
     "redux": "^3.5.2",
     "redux-logger": "^2.6.1",
     "redux-thunk": "^2.1.0"

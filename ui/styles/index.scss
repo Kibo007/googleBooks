@@ -3,6 +3,7 @@
 @import "./normalize.scss";
 @import "./typography.scss";
 @import "./buttons-inputs.scss";
+@import "./drop-down.scss";
 
 
 /* Shared generic css
@@ -37,8 +38,11 @@ a {
     margin-left: 10px;
   }
 
-  .ml-x {
+  .ml-l {
     margin-left: 40px;
+  }
+  .mt-l {
+    margin-top: 40px;
   }
 
   .center-text {

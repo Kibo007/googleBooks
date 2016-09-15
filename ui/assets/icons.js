@@ -5,7 +5,9 @@ export const SvgIcon = (props) => {
     close: <Close {...props}/>,
     search: <Search {...props}/>,
     back: <Back {...props}/>,
-    loading: <Loading {...props}/>
+    loading: <Loading {...props}/>,
+    tableView: <TableView />,
+    listView: <ListView />
   };
 
   return (
@@ -52,6 +54,41 @@ const Loading = (props) => {
       <path d="M16 0 A16 16 0 0 1 32 16 L28 16 A12 12 0 0 0 16 4z">
         <animateTransform attributeName="transform" type="rotate" from="0 16 16" to="360 16 16" dur="0.8s" repeatCount="indefinite" />
       </path>
+    </svg>
+  )
+};
+
+const TableView = () => {
+  return (
+    <svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1">
+      <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+        <g id="menu-1" fill="#3E90FF">
+          <g id="Group">
+            <rect id="Rectangle-path" x="11.3793103" y="0" width="8.62068966" height="8.62068966"></rect>
+            <rect id="Rectangle-path" x="0" y="0" width="8.62068966" height="8.62068966"></rect>
+            <rect id="Rectangle-path" x="0" y="11.3793103" width="8.62068966" height="8.62068966"></rect>
+            <rect id="Rectangle-path" x="11.3793103" y="11.3793103" width="8.62068966" height="8.62068966"></rect>
+          </g>
+        </g>
+      </g>
+    </svg>
+  )
+};
+
+const ListView = () => {
+  return (
+    <svg width="20px" height="20px" viewBox="0 0 20 20">
+      <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+        <g id="bars" fill="#3E90FF">
+          <g id="Layer_1">
+            <g id="Group">
+              <rect id="Rectangle-path" x="0" y="0" width="20" height="2.60869565"></rect>
+              <rect id="Rectangle-path" x="0" y="17.3913043" width="20" height="2.60869565"></rect>
+              <rect id="Rectangle-path" x="0" y="8.69565217" width="20" height="2.60869565"></rect>
+            </g>
+          </g>
+        </g>
+      </g>
     </svg>
   )
 };

@@ -10,6 +10,10 @@ import {checkStatus, parseJSON, sortByName, sortByValueLargest} from '../../util
 
 const BOOKS_FETCHED_SUCCESS = 'BOOKS_FETCHED_SUCCESS';
 const BOOKS_LOADING = 'BOOKS_LOADING';
+const BOOKS_LIST_VIEW = 'BOOKS_LIST_VIEW';
+const BOOKS_UPDATE_SORTING = 'BOOKS_UPDATE_SORTING';
+const BOOKS_UPDATE_SORTING_DIRECTION = 'BOOKS_UPDATE_SORTING_DIRECTION';
+const BOOKS_UPDATE_SEARCH = 'BOOKS_UPDATE_SEARCH';
 
 //---------------------------------------------------------------------------------------------
 //---------------------------- action creator  -------------------------------------------------------
@@ -24,12 +28,42 @@ const booksFetched = (payload, query) => (dispatch) => {
   dispatch(loading(false));
 };
 
+const changeListView = (payload) => {
+  return {
+    type: BOOKS_LIST_VIEW,
+    payload
+  };
+};
+
 const loading = (payload) => {
   return {
     type: BOOKS_LOADING,
     payload
   };
 };
+
+const updateBooksListSearch = (payload) => {
+  return {
+    type: BOOKS_UPDATE_SEARCH,
+    payload
+  };
+};
+
+const updateBooksListSorting = (payload) => {
+  return {
+    type: BOOKS_UPDATE_SORTING,
+    payload
+  };
+};
+
+const updateBooksListSortingDirection = (payload) => {
+  return {
+    type: BOOKS_UPDATE_SORTING_DIRECTION,
+    payload
+  };
+};
+
+
 
 //---------------------------------------------------------------------------------------------
 //---------------------------- async action creator  -------------------------------------------------------
@@ -58,7 +92,11 @@ const initialState = {
   items: [],
   query: null,
   totalItems: null,
-  loading: false
+  loading: false,
+  listViewHorizontal: true,
+  sortBy: 'title',
+  sortDirection: 'az',
+  searchBy: ''
 };
 
 // reducer
@@ -78,6 +116,26 @@ export const booksLibrary = (state = initialState, action = {}) => {
         ...state,
         loading: action.payload
       };
+    case BOOKS_LIST_VIEW:
+      return {
+        ...state,
+        listViewHorizontal: action.payload
+      };
+    case BOOKS_UPDATE_SEARCH:
+      return {
+        ...state,
+        searchBy: action.payload
+      };
+    case BOOKS_UPDATE_SORTING:
+      return {
+        ...state,
+        sortBy: action.payload
+      };
+    case BOOKS_UPDATE_SORTING_DIRECTION:
+      return {
+        ...state,
+        sortDirection: action.payload
+      };
 
     default:
       return state;
@@ -89,13 +147,19 @@ export const booksLibrary = (state = initialState, action = {}) => {
 //---------------------------------------------------------------------------------------------
 
 export const mapStateToProps = state => {
-  let {items, query, totalItems, loading} = state.booksLibrary;
+  let {items, query, totalItems, loading, listViewHorizontal,
+       sortBy, searchBy, sortDirection} = state.booksLibrary;
+
   return {
-    booksList: items,
     query,
     pageNum: Math.ceil(totalItems / 10),
     loading,
-    totalItems
+    totalItems,
+    listViewHorizontal,
+    sortBy,
+    searchBy,
+    sortDirection,
+    booksList: items
   };
 };
 
@@ -104,7 +168,11 @@ export const mapStateToProps = state => {
 //---------------------------------------------------------------------------------------------
 export const mapActionToDispatch = (dispatch) => {
   return bindActionCreators({
-    fetchBooks
+    fetchBooks,
+    changeListView,
+    updateBooksListSortingDirection,
+    updateBooksListSorting,
+    updateBooksListSearch
   }, dispatch)
 };
 

@@ -2,7 +2,7 @@
 
 import 'isomorphic-fetch';
 import {bindActionCreators} from 'redux';
-import {checkStatus, parseJSON, sortByName, sortByValueLargest} from '../../utils/utils';
+import {checkStatus, parseJSON} from '../../utils/utils';
 
 
 //---------------------------------------------------------------------------------------------
@@ -11,7 +11,6 @@ import {checkStatus, parseJSON, sortByName, sortByValueLargest} from '../../util
 
 const BOOK_DETAILS_FETCHED_SUCCESS = 'BOOK_DETAILS_FETCHED_SUCCESS';
 const BOOK_DETAILS_REMOVE = 'BOOK_DETAILS_REMOVE';
-
 
 //---------------------------------------------------------------------------------------------
 //---------------------------- action creator  -------------------------------------------------------
@@ -30,7 +29,6 @@ const bookDetailsRemove = (payload) => {
     payload
   };
 };
-
 
 //---------------------------------------------------------------------------------------------
 //---------------------------- async action creator  -------------------------------------------------------
@@ -86,6 +84,7 @@ export const bookDetails = (state = initialState, action = {}) => {
 
 export const mapStateToProps = state => {
   let {volumeInfo, saleInfo, accessInfo} = state.bookDetails;
+
   let image, title, subtitle, authors,
       publisher, publishedDate, categories,
       description, price, pdfLink, buyLink;

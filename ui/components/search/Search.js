@@ -22,7 +22,7 @@ export default class Search extends Component {
 
     return (
       <div>
-        <form onSubmit={this.handleSubmit} data-layout="row" data-layout-align="center center">
+        <form className={styles.search} onSubmit={this.handleSubmit} data-layout="row" data-layout-align="center center">
           <input type="text"
                  className="input"
                  placeholder="Enter book name"
