@@ -57,7 +57,7 @@ const fetchBooks = (query, startIndex = 0) => {
 const initialState = {
   items: [],
   query: null,
-  totalItems: 0,
+  totalItems: null,
   loading: false
 };
 
@@ -94,7 +94,8 @@ export const mapStateToProps = state => {
     booksList: items,
     query,
     pageNum: Math.ceil(totalItems / 10),
-    loading
+    loading,
+    totalItems
   };
 };
 

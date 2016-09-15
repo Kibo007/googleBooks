@@ -8,7 +8,7 @@ export default class Pagination extends Component {
   }
 
   handlePageClick = (data) => {
-    let selected = data.selected + 1;
+    let selected = data.selected;
     let offset = Math.ceil(selected * 10);
 
     this.props.fetchBooks(this.props.query, offset);

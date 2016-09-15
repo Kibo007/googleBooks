@@ -28,9 +28,14 @@ class BookLibrary extends Component {
       fetchBooks,
       booksList,
       query,
-      pageNum
+      pageNum,
+      loading,
+      totalItems
     } = this.props;
-    
+
+    let isPaginationVisible = query && totalItems > 0;
+    let noResults = totalItems === 0;
+
     return (
       <div>
         <div className={styles.searchWrapper}>
@@ -40,15 +45,19 @@ class BookLibrary extends Component {
         <List booksList={booksList}
               handleRoutingToDetailsPage={this.handleRoutingToDetailsPage}/>
 
-
-        {this.props.query ?
+        {isPaginationVisible &&
           <Pagination query={query}
                       fetchBooks={fetchBooks}
-                      pageNum={pageNum}/> :
+                      pageNum={pageNum}/>
+        }
+
+        {!query &&
           <h2 className="center-text">Give it try and search for book!</h2>
         }
 
-        {this.props.loading && <Loading />}
+        {loading && <Loading />}
+
+        {noResults && <h2 className="center-text">no results for {query}</h2>}
 
       </div>
     );
