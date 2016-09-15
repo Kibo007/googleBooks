@@ -7,6 +7,8 @@ import Search from './../../components/search/Search';
 import List from './../../components/list/List';
 import Pagination from './../../components/pagination/Pagination';
 
+import styles from './bookLibrary.scss';
+
 class BookLibrary extends Component {
   constructor(props) {
     super(props);
@@ -30,8 +32,10 @@ class BookLibrary extends Component {
     
     return (
       <div>
+        <div className={styles.searchWrapper}>
+          <Search fetchBooks={fetchBooks} />
+        </div>
 
-        <Search fetchBooks={fetchBooks} />
         <List booksList={booksList}
               handleRoutingToDetailsPage={this.handleRoutingToDetailsPage}/>
         <Pagination query={query}

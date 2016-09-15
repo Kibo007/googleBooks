@@ -21,13 +21,14 @@ export default class Search extends Component {
   render() {
 
     return (
-      <div data-layout="column" data-layout-align="space-between center">
-        <form onSubmit={this.handleSubmit}>
+      <div>
+        <form onSubmit={this.handleSubmit} data-layout="row" data-layout-align="center center">
           <input type="text"
+                 className="input"
                  placeholder="Enter book name"
                  value={this.state.query}
                  onChange={this.handleAuthorChange}/>
-          <input type="submit" value="Post"/>
+          <input className="btn btn-buy" type="submit" value="Search"/>
         </form>
       </div>
     );
