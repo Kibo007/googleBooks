@@ -13,6 +13,9 @@ import styles from './bookLibrary.scss';
 class BookLibrary extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      listViewHorizontal: true
+    }
   }
 
   componentDidMount() {
@@ -21,6 +24,10 @@ class BookLibrary extends Component {
   handleRoutingToDetailsPage = (url) => {
     localStorage.setItem('bookUrl', url);
     this.context.router.push('/book-details');
+  };
+
+  handleListView = () => {
+    this.setState({listViewHorizontal: !this.state.listViewHorizontal })
   };
 
   render() {
@@ -42,22 +49,27 @@ class BookLibrary extends Component {
           <Search fetchBooks={fetchBooks} />
         </div>
 
-        <List booksList={booksList}
-              handleRoutingToDetailsPage={this.handleRoutingToDetailsPage}/>
+        <div onClick={this.handleListView}>toggle list view</div>
+
+        {!loading &&
+          <List booksList={booksList}
+                handleRoutingToDetailsPage={this.handleRoutingToDetailsPage}
+                listViewHorizontal={this.state.listViewHorizontal}/>
+        }
+
+        {loading && <Loading />}
+
+        {!query &&
+        <h2 className="center-text">Give it try and search for book!</h2>
+        }
+
+        {noResults && <h2 className="center-text">no results for {query}</h2>}
 
         {isPaginationVisible &&
           <Pagination query={query}
                       fetchBooks={fetchBooks}
                       pageNum={pageNum}/>
         }
-
-        {!query &&
-          <h2 className="center-text">Give it try and search for book!</h2>
-        }
-
-        {loading && <Loading />}
-
-        {noResults && <h2 className="center-text">no results for {query}</h2>}
 
       </div>
     );

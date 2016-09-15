@@ -11,20 +11,21 @@ export default class List extends Component {
   }
 
   render() {
-    let {booksList} = this.props;
+    let {booksList, listViewHorizontal} = this.props;
 
 
     return (
-      <ul data-layout="column" data-layout-align=" center" className={styles.list}>
+      <ul data-layout={listViewHorizontal ? 'column' : 'row'} data-layout-align=" center" className={styles.list}>
         {
           _.map(booksList, (book, i) => {
             let {imageLinks} = book.volumeInfo;
             return (
-              <li key={i} data-layout="row" data-layout-align="start center"
+              <li key={i} data-layout={listViewHorizontal ? 'row' : 'column'} data-layout-align="start center"
                   className={styles.listItem}
                   onClick={() => this.props.handleRoutingToDetailsPage(book.selfLink)}>
                 <img src={imageLinks && imageLinks.smallThumbnail}
-                     alt={book.searchInfo && book.searchInfo.textSnippet}/>
+                     alt={book.searchInfo && book.searchInfo.textSnippet}
+                     className={!listViewHorizontal ? 'mb-m' : ''}/>
                 <BookInfoDetails details={{...book.volumeInfo}}/>
               </li>
             )

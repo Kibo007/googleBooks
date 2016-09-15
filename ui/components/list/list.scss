@@ -2,10 +2,12 @@
 
 .list {
   margin: 50px;
+  flex-wrap: wrap;
+
   &Item {
     width: 50%;
-    margin-bottom: 20px;
     background-color: #ffffff;
+    padding: 20px;
     cursor: pointer;
     transition: background-color .3s linear;
 
