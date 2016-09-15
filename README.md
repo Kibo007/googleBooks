@@ -8,30 +8,10 @@ npm start
 ```
 Then open http://localhost:3000
 
-### Build and Run the Production Server (Linux/OSX)
+I didn't made any unit tests due to time limit, I hope so you will like it.
+I tried to make it best I could, but also I had to work full time on my current job.
 
-```
-npm run build
-npm run prod
-```
+I made instead of table this list that can be horizontal and vertical, so than I put,
+all controller for list in one component.
 
-Then open http://localhost
-(Note the production port is set to 80 in package.json)
-
-### Install and Run the Dev Server (Windows)
-
-```
-npm install
-npm run dev-win
-```
-
-Then open http://localhost:3000
-
-### Build and Run the Production Server (Windows)
-
-```
-npm run build-win
-npm run start-win
-```
-Then open http://localhost
-(Note the production port is set to 80 in package.json)
+if you have any question be free to ask.
