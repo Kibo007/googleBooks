@@ -12,6 +12,15 @@ import {
 
 import {SvgIcon} from './../../assets/icons';
 
+let ButtonBack = (props) => {
+  return (
+    <div className="btn btn-transparent mb-m" data-layout="row" data-layout-align="start center">
+      <SvgIcon type="back" h="20" w="20" color="#3E90FF"/>
+      <a className="ml-s" href="#" onClick={props.handleBackToSearch}>back to books</a>
+    </div>
+  )
+};
+
 class BookDetails extends Component {
   constructor(props) {
     super(props);
@@ -30,16 +39,22 @@ class BookDetails extends Component {
   render() {
     let {
       image, title, description,
-      pdfLink, buyLink, categories
+      pdfLink, buyLink, categories, error
     } = this.props;
+
+    if (error) {
+      return (
+        <div>
+          <h2 className="center-text mt-l mb-l">something bad happened! {error}</h2>
+          <ButtonBack handleBackToSearch={this.handleBackToSearch} />
+        </div>
+        )
+    }
 
     return (
       <div className={styles.detailPage} data-layout="column" data-layout-align="space-around start">
 
-        <div className="btn btn-transparent mb-m" data-layout="row" data-layout-align="start center">
-          <SvgIcon type="back" h="20" w="20" color="#3E90FF"/>
-          <a className="ml-s" href="#" onClick={this.handleBackToSearch}>back to books</a>
-        </div>
+        <ButtonBack handleBackToSearch={this.handleBackToSearch} />
 
         <div data-layout="row" data-layout-align="space-between start">
 

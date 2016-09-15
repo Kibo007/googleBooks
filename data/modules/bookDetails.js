@@ -11,6 +11,7 @@ import {checkStatus, parseJSON} from '../../utils/utils';
 
 const BOOK_DETAILS_FETCHED_SUCCESS = 'BOOK_DETAILS_FETCHED_SUCCESS';
 const BOOK_DETAILS_REMOVE = 'BOOK_DETAILS_REMOVE';
+const BOOKS_ERROR = 'BOOKS_ERROR';
 
 //---------------------------------------------------------------------------------------------
 //---------------------------- action creator  -------------------------------------------------------
@@ -30,6 +31,13 @@ const bookDetailsRemove = (payload) => {
   };
 };
 
+const handleError = (error) => {
+  return {
+    type: BOOKS_ERROR,
+    error
+  };
+};
+
 //---------------------------------------------------------------------------------------------
 //---------------------------- async action creator  -------------------------------------------------------
 //---------------------------------------------------------------------------------------------
@@ -41,10 +49,7 @@ const fetchBookDetails = (bookUrl) => {
       .then(checkStatus)
       .then(parseJSON)
       .then(json => dispatch(bookDetailsFetched(json)))
-      .catch(error => {
-        console.log(error)
-        //TODO make error handling to
-      });
+      .catch(error => dispatch(handleError(error)));
   };
 };
 
@@ -72,6 +77,11 @@ export const bookDetails = (state = initialState, action = {}) => {
       return {
         ...initialState
       };
+    case BOOKS_ERROR:
+      return {
+        ...initialState,
+        error: action.error.message
+      };
 
     default:
       return state;
@@ -83,7 +93,7 @@ export const bookDetails = (state = initialState, action = {}) => {
 //---------------------------------------------------------------------------------------------
 
 export const mapStateToProps = state => {
-  let {volumeInfo, saleInfo, accessInfo} = state.bookDetails;
+  let {volumeInfo, saleInfo, accessInfo, error} = state.bookDetails;
 
   let image, title, subtitle, authors,
       publisher, publishedDate, categories,
@@ -120,7 +130,8 @@ export const mapStateToProps = state => {
     description,
     price,
     pdfLink,
-    buyLink
+    buyLink,
+    error: error === '' ? true : error
   };
 };
 
