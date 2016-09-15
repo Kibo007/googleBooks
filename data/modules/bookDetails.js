@@ -86,7 +86,9 @@ export const bookDetails = (state = initialState, action = {}) => {
 
 export const mapStateToProps = state => {
   let {volumeInfo, saleInfo, accessInfo} = state.bookDetails;
-  let image, title, subtitle, author, publisher, published, categories, description, price, pdfLink, buyLink;
+  let image, title, subtitle, authors,
+      publisher, publishedDate, categories,
+      description, price, pdfLink, buyLink;
 
   if (!_.isEmpty(volumeInfo)) {
     let imageLinks = volumeInfo.imageLinks;
@@ -94,22 +96,27 @@ export const mapStateToProps = state => {
     image = imageLinks.medium ? imageLinks.medium : imageLinks.smallThumbnail;
     title = volumeInfo.title;
     subtitle = volumeInfo.subtitle ? volumeInfo.subtitle : null;
-    author = volumeInfo.authors[0];
+    authors = volumeInfo.authors;
     publisher = volumeInfo.publisher;
-    published = volumeInfo.publishedDate;
+    publishedDate = volumeInfo.publishedDate;
     categories = volumeInfo.categories;
     description = volumeInfo.description;
-    price = saleInfo.saleability !== 'NOT_FOR_SALE' ? `${saleInfo.listPrice.amount} ${saleInfo.listPrice.currencyCode}` : 'Not for sale!';
+
+    price = saleInfo.saleability !== 'NOT_FOR_SALE' ?
+      `${saleInfo.listPrice.amount} ${saleInfo.listPrice.currencyCode}` :
+      'Not for sale!';
+
     pdfLink = accessInfo.pdf.acsTokenLink;
     buyLink = saleInfo.buyLink;
   }
+
   return {
     image,
     title,
     subtitle,
-    author,
+    authors,
     publisher,
-    published,
+    publishedDate,
     categories,
     description,
     price,

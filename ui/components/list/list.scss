@@ -3,7 +3,19 @@
 .list {
   margin: 50px;
   &Item {
-    width: 100%;
+    width: 50%;
     margin-bottom: 20px;
+    background-color: #ffffff;
+    cursor: pointer;
+    transition: background-color .3s linear;
+
+    &:hover {
+      background-color: #f9f9f9;
+    }
+
+    img {
+      margin-right: 30px;
+      width: 128px;
+    }
   }
 }

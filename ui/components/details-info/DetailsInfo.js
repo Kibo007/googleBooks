@@ -28,38 +28,47 @@ export const Description = (props) => {
 };
 
 export const BookInfo = (props) => {
-  let { title, subtitle, author,
-        publisher, published,
-        price, buyLink} = props.details;
-
   return (
     <div className={styles.bookDetails}>
       <h1>Book details</h1>
-      <ul data-layout="column" data-layout-align="space-between start">
-        <li>
-          <b>Title:</b>{title}
-        </li>
-        {subtitle &&
-        <li>
-          <b>Subtitle:</b>{subtitle}
-        </li>
-        }
-        <li>
-          <b>Author:</b>{author}
-        </li>
-        <li>
-          <b>Publisher:</b>{publisher}
-        </li>
-        <li>
-          <b>Published date:</b>{published}
-        </li>
-        <li className={styles.callToAction} data-layout="row" data-layout-align="space-between center">
-          <div className="mr-m">
-            <b>Price: </b>{price}
-          </div>
-          <BuyButton buyLink={buyLink}/>
-        </li>
-      </ul>
+      <BookInfoDetails details={props.details}/>
     </div>
+  )
+};
+
+export const BookInfoDetails = (props) => {
+  let { title, subtitle, authors,
+        publisher, publishedDate,
+        price, buyLink} = props.details;
+  return (
+    <ul data-layout="column"
+        data-layout-align="space-between start"
+        className={styles.infoList}>
+      <li>
+        <b>Title:</b>{title}
+      </li>
+      {subtitle &&
+      <li>
+        <b>Subtitle:</b>{subtitle}
+      </li>
+      }
+      <li>
+        <b>Author:</b>{authors}
+      </li>
+      <li>
+        <b>Publisher:</b>{publisher}
+      </li>
+      <li>
+        <b>Published date:</b>{publishedDate}
+      </li>
+      {price &&
+      <li className={styles.callToAction} data-layout="row" data-layout-align="space-between center">
+        <div className="mr-m">
+          <b>Price: </b>{price}
+        </div>
+        <BuyButton buyLink={buyLink}/>
+      </li>
+      }
+    </ul>
   )
 };
