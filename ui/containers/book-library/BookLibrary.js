@@ -52,5 +52,5 @@ BookLibrary.contextTypes = {
 
 export default connect(
   mapStateToProps,
-  mapActionToDispatch,
+  mapActionToDispatch
 )(BookLibrary);

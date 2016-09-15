@@ -1,5 +1,7 @@
 'use strict';
 
+export const createMarkup = (description) => { return {__html: description} };
+
 export const checkStatus = (response) => {
   if (!response.ok) {   // (response.status < 200 || response.status > 300)
     const error = new Error(response.statusText);

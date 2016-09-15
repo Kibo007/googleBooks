@@ -8,8 +8,8 @@ import {checkStatus, parseJSON, sortByName, sortByValueLargest} from '../../util
 //---------------------------- action type  -------------------------------------------------------
 //---------------------------------------------------------------------------------------------
 
-export const BOOKS_FETCHED_SUCCESS = 'BOOKS_FETCHED_SUCCESS';
-export const BOOK_DETAILS_FETCHED_SUCCESS = 'BOOK_DETAILS_FETCHED_SUCCESS';
+const BOOKS_FETCHED_SUCCESS = 'BOOKS_FETCHED_SUCCESS';
+const BOOK_DETAILS_FETCHED_SUCCESS = 'BOOK_DETAILS_FETCHED_SUCCESS';
 
 
 //---------------------------------------------------------------------------------------------
@@ -29,7 +29,7 @@ const booksFetched = (payload, query) => {
 //---------------------------- async action creator  -------------------------------------------------------
 //---------------------------------------------------------------------------------------------
 
-export const fetchBooks = (query, startIndex = 0,) => {
+const fetchBooks = (query, startIndex = 0) => {
   return dispatch => {
 
     return fetch(`https://www.googleapis.com/books/v1/volumes?q=intitle:${query}&startIndex=${startIndex}&printType=books&orderBy=newest&maxResults=10`)
@@ -47,7 +47,7 @@ export const fetchBooks = (query, startIndex = 0,) => {
 //---------------------------- reducer  -------------------------------------------------------
 //---------------------------------------------------------------------------------------------
 
-let initialState = {
+const initialState = {
   items: [],
   query: '',
   totalItems: 0

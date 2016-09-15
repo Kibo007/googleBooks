@@ -9,7 +9,8 @@ import {checkStatus, parseJSON, sortByName, sortByValueLargest} from '../../util
 //---------------------------- action type  -------------------------------------------------------
 //---------------------------------------------------------------------------------------------
 
-export const BOOK_DETAILS_FETCHED_SUCCESS = 'BOOK_DETAILS_FETCHED_SUCCESS';
+const BOOK_DETAILS_FETCHED_SUCCESS = 'BOOK_DETAILS_FETCHED_SUCCESS';
+const BOOK_DETAILS_REMOVE = 'BOOK_DETAILS_REMOVE';
 
 
 //---------------------------------------------------------------------------------------------
@@ -23,12 +24,19 @@ const bookDetailsFetched = (payload) => {
   };
 };
 
+const bookDetailsRemove = (payload) => {
+  return {
+    type: BOOK_DETAILS_REMOVE,
+    payload
+  };
+};
+
 
 //---------------------------------------------------------------------------------------------
 //---------------------------- async action creator  -------------------------------------------------------
 //---------------------------------------------------------------------------------------------
 
-export const fetchBookDetails = (bookUrl) => {
+const fetchBookDetails = (bookUrl) => {
   return dispatch => {
 
     return fetch(bookUrl)
@@ -46,8 +54,10 @@ export const fetchBookDetails = (bookUrl) => {
 //---------------------------- reducer  -------------------------------------------------------
 //---------------------------------------------------------------------------------------------
 
-let initialState = {
-  volumeInfo: null
+const initialState = {
+  volumeInfo: null,
+  saleInfo: null,
+  accessInfo: null
 };
 
 // reducer
@@ -59,6 +69,10 @@ export const bookDetails = (state = initialState, action = {}) => {
       return {
         ...state,
         ...action.payload
+      };
+    case BOOK_DETAILS_REMOVE:
+      return {
+        ...initialState
       };
 
     default:
@@ -73,16 +87,19 @@ export const bookDetails = (state = initialState, action = {}) => {
 export const mapStateToProps = state => {
   let {volumeInfo, saleInfo, accessInfo} = state.bookDetails;
   let image, title, subtitle, author, publisher, published, categories, description, price, pdfLink, buyLink;
+
   if (!_.isEmpty(volumeInfo)) {
-    image = volumeInfo.imageLinks.medium;
+    let imageLinks = volumeInfo.imageLinks;
+
+    image = imageLinks.medium ? imageLinks.medium : imageLinks.smallThumbnail;
     title = volumeInfo.title;
-    subtitle = volumeInfo.subtitle;
+    subtitle = volumeInfo.subtitle ? volumeInfo.subtitle : null;
     author = volumeInfo.authors[0];
     publisher = volumeInfo.publisher;
     published = volumeInfo.publishedDate;
     categories = volumeInfo.categories;
     description = volumeInfo.description;
-    price = `${saleInfo.listPrice.amount} ${saleInfo.listPrice.currencyCode}`;
+    price = saleInfo.saleability !== 'NOT_FOR_SALE' ? `${saleInfo.listPrice.amount} ${saleInfo.listPrice.currencyCode}` : 'Not for sale!';
     pdfLink = accessInfo.pdf.acsTokenLink;
     buyLink = saleInfo.buyLink;
   }
@@ -106,7 +123,8 @@ export const mapStateToProps = state => {
 //---------------------------------------------------------------------------------------------
 export const mapActionToDispatch = (dispatch) => {
   return bindActionCreators({
-    fetchBookDetails
+    fetchBookDetails,
+    bookDetailsRemove
   }, dispatch)
 };
 

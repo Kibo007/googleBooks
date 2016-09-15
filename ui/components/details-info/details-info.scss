@@ -1,0 +1,22 @@
+.bookDetails {
+  li {
+    margin-bottom: 10px;
+  }
+  b {
+    margin-right: 10px;
+  }
+  .callToAction {
+    margin: 10px 0;
+  }
+}
+
+.description,
+.categories,
+.bookDetails {
+  margin-bottom: 30px;
+  h2, h1 {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+}
