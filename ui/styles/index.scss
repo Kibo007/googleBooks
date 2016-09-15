@@ -1,10 +1,14 @@
 @import './colors.scss';
 @import "./fonts.scss";
 @import "./normalize.scss";
-@import "./typography.scss";
 @import "./buttons-inputs.scss";
 @import "./drop-down.scss";
 
+$small-text: 12px;
+$mid-text: 14px;
+$normal-text: 16px;
+$big-text: 20px;
+$extra-big: 24px;
 
 /* Shared generic css
  ------------------------------ ------------------------------ ------------------------------ ------------------------------

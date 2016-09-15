@@ -30,7 +30,7 @@ class BookLibrary extends Component {
 
     let isPaginationVisible = query && totalItems > 0;
     let noResults = totalItems === 0;
-    let showResults = !loading && booksList.length > 0;
+    let showResults = !loading && totalItems > 0;
 
     return (
       <div>

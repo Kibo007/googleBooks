@@ -9,6 +9,7 @@
     background-color: #ffffff;
     padding: 20px;
     cursor: pointer;
+    border-bottom: 1px solid $mainColor-light;
     transition: background-color .3s linear;
 
     &:hover {
@@ -18,6 +19,9 @@
     img {
       margin-right: 30px;
       width: 128px;
+    }
+    &Vertical {
+      border-bottom: none;
     }
   }
 }

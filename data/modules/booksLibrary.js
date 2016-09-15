@@ -2,7 +2,7 @@
 
 import 'isomorphic-fetch';
 import {bindActionCreators} from 'redux';
-import {checkStatus, parseJSON, sortByName, sortByValueLargest} from '../../utils/utils';
+import {checkStatus, parseJSON, sortByName} from '../../utils/utils';
 
 //---------------------------------------------------------------------------------------------
 //---------------------------- action type  -------------------------------------------------------
@@ -66,7 +66,7 @@ const updateBooksListSortingDirection = (payload) => {
 
 
 //---------------------------------------------------------------------------------------------
-//---------------------------- async action creator  -------------------------------------------------------
+//---------------------------- async action creator  ------------------------------------------
 //---------------------------------------------------------------------------------------------
 
 const fetchBooks = (query, startIndex = 0) => {
@@ -150,6 +150,28 @@ export const mapStateToProps = state => {
   let {items, query, totalItems, loading, listViewHorizontal,
        sortBy, searchBy, sortDirection} = state.booksLibrary;
 
+  let isAscendant = sortDirection === 'az';
+
+  let booksList = items
+    .filter((book) => {
+      let bookName = book.volumeInfo.title.toLowerCase();
+      if (searchBy === '') {
+        return book
+      }
+      return _.includes(bookName, searchBy);
+    })
+    .sort((a, b) => {
+      if (sortBy === 'title') {
+        return sortByName(a.volumeInfo.title, b.volumeInfo.title, isAscendant);
+      }
+      if (sortBy === 'author' && isAscendant) {
+        return sortByName(a.volumeInfo.authors[0], b.volumeInfo.authors[0], isAscendant);
+      }
+      if (sortBy === 'publisher' && isAscendant) {
+        return sortByName(a.volumeInfo.publisher, b.volumeInfo.publisher, isAscendant);
+      }
+    });
+
   return {
     query,
     pageNum: Math.ceil(totalItems / 10),
@@ -159,7 +181,7 @@ export const mapStateToProps = state => {
     sortBy,
     searchBy,
     sortDirection,
-    booksList: items
+    booksList
   };
 };
 
