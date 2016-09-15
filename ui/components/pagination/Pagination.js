@@ -15,7 +15,6 @@ export default class Pagination extends Component {
   };
 
   render() {
-
     return (
       <div data-layout="column" data-layout-align="space-between center">
         <ReactPaginate previousLabel={"previous"}

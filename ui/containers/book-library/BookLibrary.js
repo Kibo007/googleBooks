@@ -6,6 +6,7 @@ import {mapStateToProps, mapActionToDispatch} from '../../../data/modules/booksL
 import Search from './../../components/search/Search';
 import List from './../../components/list/List';
 import Pagination from './../../components/pagination/Pagination';
+import Loading from './../../components/loading/Loading';
 
 import styles from './bookLibrary.scss';
 
@@ -38,9 +39,17 @@ class BookLibrary extends Component {
 
         <List booksList={booksList}
               handleRoutingToDetailsPage={this.handleRoutingToDetailsPage}/>
-        <Pagination query={query}
-                    fetchBooks={fetchBooks}
-                    pageNum={pageNum}/>
+
+
+        {this.props.query ?
+          <Pagination query={query}
+                      fetchBooks={fetchBooks}
+                      pageNum={pageNum}/> :
+          <h2 className="center-text">Give it try and search for book!</h2>
+        }
+
+        {this.props.loading && <Loading />}
+
       </div>
     );
   }
