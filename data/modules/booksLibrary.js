@@ -14,6 +14,7 @@ const BOOKS_LIST_VIEW = 'BOOKS_LIST_VIEW';
 const BOOKS_UPDATE_SORTING = 'BOOKS_UPDATE_SORTING';
 const BOOKS_UPDATE_SORTING_DIRECTION = 'BOOKS_UPDATE_SORTING_DIRECTION';
 const BOOKS_UPDATE_SEARCH = 'BOOKS_UPDATE_SEARCH';
+const BOOKS_ERROR = 'BOOKS_ERROR';
 
 //---------------------------------------------------------------------------------------------
 //---------------------------- action creator  -------------------------------------------------------
@@ -63,6 +64,13 @@ const updateBooksListSortingDirection = (payload) => {
   };
 };
 
+const handleError = (error) => {
+  return {
+    type: BOOKS_ERROR,
+    error
+  };
+};
+
 
 
 //---------------------------------------------------------------------------------------------
@@ -77,10 +85,7 @@ const fetchBooks = (query, startIndex = 0) => {
       .then(checkStatus)
       .then(parseJSON)
       .then(json => dispatch(booksFetched(json, query)))
-      .catch(error => {
-        console.log(error)
-        //TODO make error handling to
-      });
+      .catch(error => dispatch(handleError(error)));
   };
 };
 
@@ -96,7 +101,8 @@ const initialState = {
   listViewHorizontal: true,
   sortBy: 'title',
   sortDirection: 'az',
-  searchBy: ''
+  searchBy: '',
+  error: false
 };
 
 // reducer
@@ -136,6 +142,11 @@ export const booksLibrary = (state = initialState, action = {}) => {
         ...state,
         sortDirection: action.payload
       };
+    case BOOKS_ERROR:
+      return {
+        ...initialState,
+        error: action.error.message
+      };
 
     default:
       return state;
@@ -148,7 +159,7 @@ export const booksLibrary = (state = initialState, action = {}) => {
 
 export const mapStateToProps = state => {
   let {items, query, totalItems, loading, listViewHorizontal,
-       sortBy, searchBy, sortDirection} = state.booksLibrary;
+       sortBy, searchBy, sortDirection, error} = state.booksLibrary;
 
   let isAscendant = sortDirection === 'az';
 
@@ -181,7 +192,8 @@ export const mapStateToProps = state => {
     sortBy,
     searchBy,
     sortDirection,
-    booksList
+    booksList,
+    error: error === '' ? true : error
   };
 };
 

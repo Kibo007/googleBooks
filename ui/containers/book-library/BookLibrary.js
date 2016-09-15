@@ -25,7 +25,7 @@ class BookLibrary extends Component {
     let {fetchBooks, booksList, query, pageNum, loading, totalItems,
           changeListView, listViewHorizontal, updateBooksListSortingDirection,
           updateBooksListSorting, updateBooksListSearch, sortBy, sortDirection,
-          searchBy
+          searchBy, error
     } = this.props;
 
     let isPaginationVisible = query && totalItems > 0;
@@ -52,6 +52,8 @@ class BookLibrary extends Component {
                   listViewHorizontal={listViewHorizontal}/>
           </div>
         }
+
+        {error && <h2 className="center-text mt-l">something bad happened! {error}</h2>}
 
         {loading && <Loading />}
 
