@@ -63,7 +63,7 @@ class BookLibrary extends Component {
 
         {noResults && <h2 className="center-text">no results for {query}</h2>}
 
-        {isPaginationVisible &&
+        {isPaginationVisible && !loading &&
           <Pagination query={query}
                       fetchBooks={fetchBooks}
                       pageNum={pageNum}/>
